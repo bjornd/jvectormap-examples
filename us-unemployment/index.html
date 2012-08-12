@@ -5,6 +5,7 @@
   <title>Maps</title>
   <link rel="stylesheet" media="all" href="../jvectormap/jquery-jvectormap.css"/>
   <link rel="stylesheet" media="all" href="css/jquery-ui-1.8.21.custom.css"/>
+  <script src="../jvectormap/tests/assets/jquery-1.7.2.min.js"></script>
   <script src="../jvectormap.min.js"></script>
   <script src="../jvectormap/tests/assets/jquery-jvectormap-us-aea-en.js"></script>
   <script src="jquery-ui-1.8.21.custom.min.js"></script>
@@ -22,14 +23,12 @@
           markers: data.metro.coords,
           series: {
             markers: [{
-              type: 'markers',
               attribute: 'fill',
               scale: ['#FEE5D9', '#A50F15'],
               values: data.metro.unemployment[val],
               min: jvm.min(metroUnemplValues),
               max: jvm.max(metroUnemplValues)
             },{
-              type: 'markers',
               attribute: 'r',
               scale: [5, 20],
               values: data.metro.population[val],
@@ -61,16 +60,16 @@
 
         var mapObject = $('.map').vectorMap('get', 'mapObject');
 
-        $("#slider").slider({
+        $(".slider").slider({
           value: val,
           min: 2005,
           max: 2009,
           step: 1,
           slide: function( event, ui ) {
             val = ui.value;
-            mapObject.series[0].setValues(data.states[ui.value]);
-            mapObject.series[1].setValues(data.metro.unemployment[ui.value]);
-            mapObject.series[2].setValues(data.metro.population[ui.value]);
+            mapObject.series.regions[0].setValues(data.states[ui.value]);
+            mapObject.series.markers[0].setValues(data.metro.unemployment[ui.value]);
+            mapObject.series.markers[1].setValues(data.metro.population[ui.value]);
           }
         });
       });
@@ -79,6 +78,6 @@
 </head>
 <body>
   <div class="map" style="width: 800px; height: 600px"></div>
-  <div id="slider" style="width: 280px; margin: 10px"></div>
+  <div class="slider" style="width: 280px; margin: 10px"></div>
 </body>
 </html>
