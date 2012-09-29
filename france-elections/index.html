@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Maps</title>
+  <link rel="stylesheet" media="all" href="../jvectormap/jquery-jvectormap.css"/>
+  <script src="../jvectormap/tests/assets/jquery-1.7.2.min.js"></script>
+  <script src="../jvectormap.min.js"></script>
+  <script src="jquery-jvectormap-fr-merc-en.js"></script>
+
+  <script>
+    $(function(){
+      $.getJSON('data.json', function(data){
+        var val = 'year2012',
+            map;
+
+        var map = new jvm.WorldMap({
+          map: 'fr_merc_en',
+          container: $('.map'),
+          series: {
+            regions: [{
+              scale: {
+                '1': '#FF69B4',
+                '2': '#4169E1'
+              },
+              attribute: 'fill',
+              values: data[val].results
+            }]
+          }
+        });
+      });
+    })
+  </script>
+</head>
+<body>
+  <div class="map" style="width: 800px; height: 600px"></div>
+</body>
+</html>
